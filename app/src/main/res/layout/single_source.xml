@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:weightSum="1"
+    android:background="#ffffffff">
+
+        <RelativeLayout
+            android:id="@+id/source_line"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#bc000000">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left"
+                    android:textAlignment="gravity"
+                    android:layout_marginRight="0dp"
+                    android:minHeight="10dp"
+                    android:padding="10dp"
+                    android:text="Src/Cat Name"
+                    android:textAppearance="@style/TextAppearance.SingleSourceName"/>
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@+id/name"
+                    android:layout_toRightOf="@+id/name"
+                    android:layout_marginLeft="0dp"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"
+                    android:text="(x/y)"
+                    android:textAppearance="@style/TextAppearance.SingleSourceCount"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@+id/name"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+        </RelativeLayout>
+
+</LinearLayout>
