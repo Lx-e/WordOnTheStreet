@@ -70,24 +70,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:background="#ffffffff"/>
-                    <!--app:srcCompat="@drawable/ic_uncheck_all" />-->
+                    android:background="#ffffffff"
+                    app:srcCompat="@drawable/ic_uncheck_all" />
 
                 <ImageButton
                     android:id="@+id/revert_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#ffffffff"
-                    android:layout_weight="1"/>
-                    <!--app:srcCompat="@drawable/ic_revert" />-->
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_revert" />
 
                 <ImageButton
                     android:id="@+id/check_all_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:background="#ffffffff"/>
-                    <!--app:srcCompat="@drawable/ic_check_all" />-->
+                    android:background="#ffffffff"
+                    app:srcCompat="@drawable/ic_check_all" />
             </LinearLayout>
 
         </LinearLayout>

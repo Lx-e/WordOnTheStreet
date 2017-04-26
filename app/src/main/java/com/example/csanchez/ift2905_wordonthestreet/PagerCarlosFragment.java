@@ -86,6 +86,21 @@ public class PagerCarlosFragment extends Fragment {
                         filtered.add(aNews);
                     }
                 }
+                if(filtered.size()==0){
+                    try{
+                        String[] cat ={args.getString("Category")};
+                        Source[] sources = NewsAPI.getSources(cat); //Retrieve all sources(default)
+
+                        srcArr = new String[sources.length];
+                        for(int i=0; i<sources.length; i++){
+                            srcArr[i] = sources[i].id;
+                        }
+                        Log.v("TAG", Arrays.toString(srcArr));
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    return NewsAPI.getNews(srcArr);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
