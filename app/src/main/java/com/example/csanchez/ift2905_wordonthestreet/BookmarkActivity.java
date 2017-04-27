@@ -234,11 +234,16 @@ public class BookmarkActivity extends AppCompatActivity implements View.OnClickL
             View v = convertView;
 
             if(v==null)
-                v = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+                v = inflater.inflate(R.layout.list_bookmark_favorite, parent, false);
 
-            TextView tv = (TextView)v.findViewById(android.R.id.text1);
-            tv.setText(bookmarks[position]);
+            SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
+            String newsDate = prefs.getString("date"+((Integer)position).toString(), null);
+            String desc = prefs.getString("title"+((Integer)position).toString(), null);
 
+            TextView tv1 = (TextView)v.findViewById(R.id.title);
+            TextView tv2 = (TextView)v.findViewById(R.id.date);
+            tv1.setText(bookmarks[position]);
+            tv2.setText(newsDate);
             return v;
         }
     }

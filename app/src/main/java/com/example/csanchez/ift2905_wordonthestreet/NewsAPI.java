@@ -101,7 +101,7 @@ public class NewsAPI {
 
         String[] urls = new String[sources.length];
         for(int i=0; i<urls.length;i++){
-            urls[i] = "https://newsapi.org/v1/articles?source="+sources[i]+"&sortBy=top&apiKey="+APIkey;
+            urls[i] = "https://newsapi.org/v1/articles?source="+sources[i]+"&apiKey="+APIkey;
         }
 
         JSONObject[] sourcesArticles = getJSON(urls);

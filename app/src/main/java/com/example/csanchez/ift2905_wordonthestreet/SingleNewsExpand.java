@@ -37,8 +37,10 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -89,6 +91,11 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
             textviewDesc.setText(desc);
             link = (String) b.get("link");
             if(!(caller.equals("HistoryActivity")||caller.equals("BookmarkActivity"))){
+                Calendar c = Calendar.getInstance();
+                System.out.println("Current time => " + c.getTime());
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                String historyDate = df.format(c.getTime());
+
                 j=prefsH.getInt("history_size", 0);
                 ee.putInt("history_size",j+1);
                 String listHistory = "H_url"+j;
@@ -96,7 +103,7 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
                 String dateHistory = "H_date"+j;
                 ee.putString(listHistory, link);
                 ee.putString(titleHistory, desc);
-                ee.putString(dateHistory, date);
+                ee.putString(dateHistory, "Visited on "+historyDate);
                 ee.commit();
             }
         }
