@@ -181,6 +181,17 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            finish();
+        }
+    }
+
     private void applyFontToItem(MenuItem item, Typeface font) {
         SpannableString mNewTitle = new SpannableString(item.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("", font, 22), 0 ,
@@ -251,10 +262,5 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(new Intent(this, HistoryActivity.class));
         finish();
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
+
 }

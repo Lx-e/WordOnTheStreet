@@ -170,6 +170,16 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
 
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -230,6 +240,7 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         item = navigationView.getMenu().findItem(R.id.nav_settings);
         applyFontToItem(item, typeface);
     }
+
 }
 
 

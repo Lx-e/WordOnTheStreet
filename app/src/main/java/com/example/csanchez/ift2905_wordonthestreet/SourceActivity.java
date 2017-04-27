@@ -178,23 +178,27 @@ public class SourceActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        String sourcesStr = getSharedPreferences("SavedData", MODE_PRIVATE).getString("FavoriteSources", "Nothing");//"No name defined" is the default value.
-        int resultCount = 0;
-        if(sourcesStr != null && !sourcesStr.equals("Nothing")) {
-            String[] sourceNames = sourcesStr.split(",");
-            for (String sourceName: sourceNames) {
-                Source source =  idsToSources.get(sourceName.trim());
-                if (source.category.equals(categoryName)) resultCount++;
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            String sourcesStr = getSharedPreferences("SavedData", MODE_PRIVATE).getString("FavoriteSources", "Nothing");//"No name defined" is the default value.
+            int resultCount = 0;
+            if(sourcesStr != null && !sourcesStr.equals("Nothing")) {
+                String[] sourceNames = sourcesStr.split(",");
+                for (String sourceName: sourceNames) {
+                    Source source =  idsToSources.get(sourceName.trim());
+                    if (source.category.equals(categoryName)) resultCount++;
+                }
             }
+
+            Intent intent = new Intent();
+            intent.putExtra("CategoryName", categoryName);
+            intent.putExtra("FavoriteCount", resultCount);
+            setResult(RESULT_OK, intent);
+            finish();
         }
-
-
-        Intent intent = new Intent();
-        intent.putExtra("CategoryName", categoryName);
-        intent.putExtra("FavoriteCount", resultCount);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
     @Override
