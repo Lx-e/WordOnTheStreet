@@ -178,23 +178,27 @@ public class SourceActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        String sourcesStr = getSharedPreferences("SavedData", MODE_PRIVATE).getString("FavoriteSources", "Nothing");//"No name defined" is the default value.
-        int resultCount = 0;
-        if(sourcesStr != null && !sourcesStr.equals("Nothing")) {
-            String[] sourceNames = sourcesStr.split(",");
-            for (String sourceName: sourceNames) {
-                Source source =  idsToSources.get(sourceName.trim());
-                if (source.category.equals(categoryName)) resultCount++;
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            String sourcesStr = getSharedPreferences("SavedData", MODE_PRIVATE).getString("FavoriteSources", "Nothing");//"No name defined" is the default value.
+            int resultCount = 0;
+            if(sourcesStr != null && !sourcesStr.equals("Nothing")) {
+                String[] sourceNames = sourcesStr.split(",");
+                for (String sourceName: sourceNames) {
+                    Source source =  idsToSources.get(sourceName.trim());
+                    if (source.category.equals(categoryName)) resultCount++;
+                }
             }
+
+            Intent intent = new Intent();
+            intent.putExtra("CategoryName", categoryName);
+            intent.putExtra("FavoriteCount", resultCount);
+            setResult(RESULT_OK, intent);
+            finish();
         }
-
-
-        Intent intent = new Intent();
-        intent.putExtra("CategoryName", categoryName);
-        intent.putExtra("FavoriteCount", resultCount);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
     @Override
@@ -223,25 +227,24 @@ public class SourceActivity extends AppCompatActivity implements View.OnClickLis
         int id = item.getItemId();
 
         if (id == R.id.nav_fav) {
-            Toast.makeText(getApplicationContext(), "favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Favorites", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
         }
         else if (id == R.id.nav_history) {
-            Toast.makeText(getApplicationContext(), "history", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "History", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             int size = prefs.getInt("bookmark_size", 0);
-
-            Toast.makeText(getApplicationContext(), "bookmarks"+((Integer)size).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Bookmarks ("+((Integer)size).toString() + ")", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_settings) {
             //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(), ((Integer)prefs.getInt("bookmark_size",0)).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
@@ -254,7 +257,7 @@ public class SourceActivity extends AppCompatActivity implements View.OnClickLis
 
     private void applyFontToItem(MenuItem item, Typeface font) {
         SpannableString mNewTitle = new SpannableString(item.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 30), 0 ,
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 20), 0 ,
                 mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         item.setTitle(mNewTitle);
     }

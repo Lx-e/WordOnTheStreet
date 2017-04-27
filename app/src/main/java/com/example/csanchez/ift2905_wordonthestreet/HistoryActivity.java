@@ -135,25 +135,24 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         int id = item.getItemId();
 
         if (id == R.id.nav_fav) {
-            Toast.makeText(getApplicationContext(), "favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Favorites", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
         }
         else if (id == R.id.nav_history) {
-            Toast.makeText(getApplicationContext(), "history", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "History", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             int size = prefs.getInt("bookmark_size", 0);
-
-            Toast.makeText(getApplicationContext(), "bookmarks"+((Integer)size).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Bookmarks ("+((Integer)size).toString() + ")", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_settings) {
             //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(), ((Integer)prefs.getInt("bookmark_size",0)).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), ScreenSlidePagerActivity.class);
             startActivity(intent);
         }
@@ -180,6 +179,17 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            finish();
+        }
     }
 
     private void applyFontToItem(MenuItem item, Typeface font) {
@@ -252,10 +262,5 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(new Intent(this, HistoryActivity.class));
         finish();
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
+
 }

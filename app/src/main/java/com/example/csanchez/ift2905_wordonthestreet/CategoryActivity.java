@@ -161,16 +161,13 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            finish();
         }
-
-        finish();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -239,25 +236,24 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
         int id = item.getItemId();
 
         if (id == R.id.nav_fav) {
-            Toast.makeText(getApplicationContext(), "favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Favorites", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
         }
         else if (id == R.id.nav_history) {
-            Toast.makeText(getApplicationContext(), "history", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "History", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             int size = prefs.getInt("bookmark_size", 0);
-
-            Toast.makeText(getApplicationContext(), "bookmarks"+((Integer)size).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Bookmarks ("+((Integer)size).toString() + ")", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_settings) {
             //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(), ((Integer)prefs.getInt("bookmark_size",0)).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }

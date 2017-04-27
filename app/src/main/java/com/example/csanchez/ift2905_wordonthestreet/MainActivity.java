@@ -170,6 +170,16 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
 
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -177,26 +187,25 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         int id = item.getItemId();
 
         if (id == R.id.nav_fav) {
-            Toast.makeText(getApplicationContext(), "favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Favorites", Toast.LENGTH_SHORT).show();
             startActivityForResult(new Intent(getApplicationContext(), CategoryActivity.class), 0);
 
         }
         else if (id == R.id.nav_history) {
-            Toast.makeText(getApplicationContext(), "history", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "History", Toast.LENGTH_SHORT).show();
             startActivityForResult(new Intent(getApplicationContext(), HistoryActivity.class), 0);
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             int size = prefs.getInt("bookmark_size", 0);
-
-            Toast.makeText(getApplicationContext(), "bookmarks"+((Integer)size).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Bookmarks ("+((Integer)size).toString() + ")", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
             startActivityForResult(intent, 0);
         }
         else if (id == R.id.nav_settings) {
             //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(), ((Integer)prefs.getInt("bookmark_size",0)).toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivityForResult(intent, 0);
         }
@@ -231,6 +240,7 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         item = navigationView.getMenu().findItem(R.id.nav_settings);
         applyFontToItem(item, typeface);
     }
+
 }
 
 
