@@ -85,6 +85,17 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
         Bundle b = i.getExtras();
         Log.v("TAG",b.get("date").toString()+b.get("desc").toString()+b.get("link").toString());
         if(b!=null){
+
+            TextView title = (TextView)findViewById(R.id.textTitle);
+            ImageView image = (ImageView) findViewById(R.id.image);
+            String titleStr = (String) b.get("title");
+            String imageStr = (String) b.get("image");
+            title.setText(titleStr);
+            Picasso.with(getApplicationContext())
+                    .load(imageStr)
+                    .into(image);
+
+
             date = (String) b.get("date");
             textviewDate.setText(date);
             desc = (String) b.get("desc");

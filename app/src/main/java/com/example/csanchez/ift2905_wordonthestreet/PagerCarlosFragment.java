@@ -171,11 +171,16 @@ public class PagerCarlosFragment extends Fragment {
                     String desc = t.getText().toString();
 
 
+
                     Intent intent = new Intent(getActivity().getApplicationContext(), SingleNewsExpand.class);
                     Log.v("TAG","FROM NEWSFEED: "+newsDate+desc+link);
                     intent.putExtra("date", newsDate);
                     intent.putExtra("desc", desc);
                     intent.putExtra("link", link);
+
+                    intent.putExtra("image", news[position].image);
+                    intent.putExtra("title", news[position].title);
+
                     intent.putExtra("caller", "PagerCarlosFragment");
                     startActivity(intent);
                 }
