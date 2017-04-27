@@ -107,13 +107,26 @@ public class NewsAPI {
         JSONObject[] sourcesArticles = getJSON(urls);
         int newsCount = 0;
         for(int i=0;i<sourcesArticles.length; i++){
-            newsCount += sourcesArticles[i].getJSONArray("articles").length();
+            try {
+                newsCount += sourcesArticles[i].getJSONArray("articles").length();
+            }
+            catch (Throwable t) {
+                // Just ignore invalid news articles
+                continue;
+            }
         }
         News[] news = new News[newsCount];
         newsCount = 0;
         for(int i=0; i<sourcesArticles.length;i++){
 
-            JSONArray fromSource = sourcesArticles[i].getJSONArray("articles");
+            JSONArray fromSource = null;
+            try {
+                fromSource = sourcesArticles[i].getJSONArray("articles");
+            }
+            catch (Throwable t) {
+                // Just ignore invalid news articles
+                continue;
+            }
 
             for(int j=0; j<fromSource.length();j++) {
                 try {

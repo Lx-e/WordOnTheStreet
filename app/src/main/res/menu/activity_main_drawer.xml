@@ -10,7 +10,7 @@
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_history_black_48dp"
-            android:title="History" />
+            android:title="History"/>
         <item
             android:id="@+id/nav_book"
             android:icon="@drawable/ic_bookmark_border_black_48dp"

@@ -13,7 +13,7 @@ public class FontTypeface {
     public Typeface getTypefaceAndroid(){
         Typeface typeFace = Typeface.DEFAULT;
 //        String strFont = "Assets/fonts/KingCity.ttf";
-        String strFont = "Assets/fonts/Stainy.ttf";
+        String strFont = "Assets/fonts/Tugano.ttf";
         try {
             if (!strFont.equals("")){
                 String strLeft = strFont.substring(0, 13);
