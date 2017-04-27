@@ -192,7 +192,7 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
                     ViewGroup sourceItem = (ViewGroup)((ViewGroup)items.getChildAt(i)).getChildAt(0);
                     TextView nameView = (TextView)sourceItem.getChildAt(0);
                     TextView countView = (TextView)sourceItem.getChildAt(1);
-                    if (categoryName.equals(nameView.getText())) {
+                    if (categoryName.equals(nameView.getText().toString().toLowerCase())) {
                         countView.setText(newText);
                         break;
                     }
@@ -269,7 +269,7 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
 
     private void applyFontToItem(MenuItem item, Typeface font) {
         SpannableString mNewTitle = new SpannableString(item.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 30), 0 ,
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 22), 0 ,
                 mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         item.setTitle(mNewTitle);
     }

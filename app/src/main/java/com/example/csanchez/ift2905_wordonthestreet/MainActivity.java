@@ -34,6 +34,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -80,9 +81,21 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         protected Source[] doInBackground(Object... params) {
 
             Source[] sources = new Source[0];
-            //Get toutes les sources
+            List<Source> activeSources = new ArrayList();
+            Map<String, Source> sourcesById = new HashMap<String, Source>();
+
             try {
                 sources = NewsAPI.getSources();
+                for (Source s: sources) { sourcesById.put(s.id, s);};
+                SharedPreferences prefs = getSharedPreferences("SavedData", MODE_PRIVATE);
+                String sourcesStr = prefs.getString("FavoriteSources", "Nothing");//"No name defined" is the default value.
+                if (!sourcesStr.equals("Nothing")) {
+                    String[] srcArr = sourcesStr.split(",");
+                    for (String sn: srcArr) {
+                        activeSources.add(sourcesById.get(sn));
+                    }
+
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.e("TAG", "Error in Reading: " + e.getLocalizedMessage());
@@ -91,27 +104,40 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
                 e.printStackTrace();
             }
 
+            sources = new Source[activeSources.size()];
+            int i = 0;
+            for (Source s: activeSources) {sources[i++] = s;};
             return sources;
         }
 
         @Override
         protected void onPostExecute(final Source[] sources) {
 
-            // Initialise un hashmap par catégorie
-            for(String hc: hardCategories){
-                sourcesByCat.put(hc, new ArrayList<String>());
-            }
+            sourcesByCat.clear();
 
-            //Distribue les sources aux hashmap correspondant à sa catégorie
+             //Distribue les sources aux hashmap correspondant à sa catégorie
             for (Source source: sources) {
-                sourcesByCat.get(source.category).add(source.id);
+                if (sourcesByCat.containsKey(source.category)) {
+                    sourcesByCat.get(source.category).add(source.id);
+                }
+                else {
+                    ArrayList<String> sourceLst = new ArrayList<String>();
+                    sourceLst.add(source.id);
+                    sourcesByCat.put(source.category, sourceLst);
+                }
             }
 
             //On lance l'adaptateur avec les sources triées
-            mDemoCollectionPagerAdapter =
-                    new PagerCarlosAdapter(getSupportFragmentManager(), sourcesByCat);
-            mViewPager = (ViewPager) findViewById(R.id.pager);
-            mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+            if (mDemoCollectionPagerAdapter != null) {
+                mDemoCollectionPagerAdapter.update(sourcesByCat);
+                mDemoCollectionPagerAdapter.notifyDataSetChanged();
+                ((TabLayout)findViewById(R.id.tabLayout)).setupWithViewPager(mViewPager);
+            }
+            else {
+                mDemoCollectionPagerAdapter = new PagerCarlosAdapter(getSupportFragmentManager(), sourcesByCat);
+                mViewPager = (ViewPager) findViewById(R.id.pager);
+                mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+            }
         }
     }
 
@@ -135,6 +161,15 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     }
 
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        SourceFetcher srcFetcher = new SourceFetcher();
+        srcFetcher.execute();
+
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -143,11 +178,12 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
 
         if (id == R.id.nav_fav) {
             Toast.makeText(getApplicationContext(), "favorites", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
+            startActivityForResult(new Intent(getApplicationContext(), CategoryActivity.class), 0);
+
         }
         else if (id == R.id.nav_history) {
             Toast.makeText(getApplicationContext(), "history", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+            startActivityForResult(new Intent(getApplicationContext(), HistoryActivity.class), 0);
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
@@ -155,24 +191,23 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
 
             Toast.makeText(getApplicationContext(), "bookmarks"+((Integer)size).toString(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         }
         else if (id == R.id.nav_settings) {
             //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             Toast.makeText(getApplicationContext(), ((Integer)prefs.getInt("bookmark_size",0)).toString(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        finish();
         return true;
     }
 
     private void applyFontToItem(MenuItem item, Typeface font) {
         SpannableString mNewTitle = new SpannableString(item.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 30), 0 ,
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 22), 0 ,
                 mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         item.setTitle(mNewTitle);
     }

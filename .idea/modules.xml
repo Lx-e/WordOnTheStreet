@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/IFT2905-WordOnTheStreet.iml" filepath="$PROJECT_DIR$/IFT2905-WordOnTheStreet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/IFT2905-WordOnTheStreet-a72f4068ce32c66a7bd119e773a835850939fba9.iml" filepath="$PROJECT_DIR$/IFT2905-WordOnTheStreet-a72f4068ce32c66a7bd119e773a835850939fba9.iml" />
-      <module fileurl="file://$PROJECT_DIR$/IFT2905-WordOnTheStreet-cs.iml" filepath="$PROJECT_DIR$/IFT2905-WordOnTheStreet-cs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WordOnTheStreet.iml" filepath="$PROJECT_DIR$/WordOnTheStreet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

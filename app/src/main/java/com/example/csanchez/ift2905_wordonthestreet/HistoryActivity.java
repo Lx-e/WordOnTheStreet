@@ -183,7 +183,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
     private void applyFontToItem(MenuItem item, Typeface font) {
         SpannableString mNewTitle = new SpannableString(item.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 30), 0 ,
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font, 22), 0 ,
                 mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         item.setTitle(mNewTitle);
     }

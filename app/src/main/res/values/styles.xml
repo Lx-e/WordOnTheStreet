@@ -44,8 +44,6 @@
         <item name="android:textColor">#f0f0f0</item>
         <item name="android:background">#bc000000</item>
 
-        <!--<item name="android:textColor">#ffffffff</item>-->
-        <!--<item name="android:background">#ff000000</item>-->
     </style>
 
 </resources>
