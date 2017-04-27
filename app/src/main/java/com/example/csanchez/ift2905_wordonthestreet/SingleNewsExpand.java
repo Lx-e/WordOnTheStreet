@@ -37,8 +37,10 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -83,12 +85,28 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
         Bundle b = i.getExtras();
         Log.v("TAG",b.get("date").toString()+b.get("desc").toString()+b.get("link").toString());
         if(b!=null){
+
+            TextView title = (TextView)findViewById(R.id.textTitle);
+            ImageView image = (ImageView) findViewById(R.id.image);
+            String titleStr = (String) b.get("title");
+            String imageStr = (String) b.get("image");
+            title.setText(titleStr);
+            Picasso.with(getApplicationContext())
+                    .load(imageStr)
+                    .into(image);
+
+
             date = (String) b.get("date");
             textviewDate.setText(date);
             desc = (String) b.get("desc");
             textviewDesc.setText(desc);
             link = (String) b.get("link");
             if(!(caller.equals("HistoryActivity")||caller.equals("BookmarkActivity"))){
+                Calendar c = Calendar.getInstance();
+                System.out.println("Current time => " + c.getTime());
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                String historyDate = df.format(c.getTime());
+
                 j=prefsH.getInt("history_size", 0);
                 ee.putInt("history_size",j+1);
                 String listHistory = "H_url"+j;
@@ -96,7 +114,7 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
                 String dateHistory = "H_date"+j;
                 ee.putString(listHistory, link);
                 ee.putString(titleHistory, desc);
-                ee.putString(dateHistory, date);
+                ee.putString(dateHistory, "Visited on "+historyDate);
                 ee.commit();
             }
         }

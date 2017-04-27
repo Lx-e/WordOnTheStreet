@@ -57,6 +57,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     MyAdapter adapter;
     private String[] hist;
 
+
     Button reset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,13 +233,16 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            SharedPreferences prefs = getSharedPreferences("history", MODE_PRIVATE);
             View v = convertView;
 
             if(v==null)
-                v = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+                v = inflater.inflate(R.layout.list_bookmark_favorite, parent, false);
 
-            TextView tv = (TextView)v.findViewById(android.R.id.text1);
-            tv.setText(hist[position]);
+            TextView tv1 = (TextView)v.findViewById(R.id.title);
+            TextView tv2 = (TextView)v.findViewById(R.id.date);
+            tv1.setText(hist[position]);
+            tv2.setText(prefs.getString("H_date"+position,""));
 
             return v;
         }
