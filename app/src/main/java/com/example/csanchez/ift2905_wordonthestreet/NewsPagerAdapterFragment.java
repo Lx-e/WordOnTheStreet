@@ -29,7 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 // Instances of this class are fragments representing a single
 // object in our collection.
-public class PagerCarlosFragment extends Fragment {
+public class NewsPagerAdapterFragment extends Fragment {
     public static final String ARG_OBJECT = "object";
 
     private String[] srcArr;
@@ -86,21 +86,7 @@ public class PagerCarlosFragment extends Fragment {
                         filtered.add(aNews);
                     }
                 }
-//                if(filtered.size()==0){
-//                    try{
-//                        String[] cat ={args.getString("Category")};
-//                        Source[] sources = NewsAPI.getSources(cat); //Retrieve all sources(default)
-//
-//                        srcArr = new String[sources.length];
-//                        for(int i=0; i<sources.length; i++){
-//                            srcArr[i] = sources[i].id;
-//                        }
-//                        Log.v("TAG", Arrays.toString(srcArr));
-//                    }catch(Exception e){
-//                        e.printStackTrace();
-//                    }
-//                    return NewsAPI.getNews(srcArr);
-//                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -181,7 +167,7 @@ public class PagerCarlosFragment extends Fragment {
                     intent.putExtra("image", news[position].image);
                     intent.putExtra("title", news[position].title);
 
-                    intent.putExtra("caller", "PagerCarlosFragment");
+                    intent.putExtra("caller", "NewsPagerAdapterFragment");
                     startActivity(intent);
                 }
             });
