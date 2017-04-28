@@ -1,15 +1,11 @@
 package com.example.csanchez.ift2905_wordonthestreet;
 
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,39 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Checkable;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.CompoundButton;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
-import org.json.JSONException;
-import org.json.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import android.widget.PopupMenu;
 
 
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -135,24 +108,19 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         int id = item.getItemId();
 
         if (id == R.id.nav_fav) {
-            Toast.makeText(getApplicationContext(), "Favorites", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
         }
         else if (id == R.id.nav_history) {
-            Toast.makeText(getApplicationContext(), "History", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             int size = prefs.getInt("bookmark_size", 0);
-            Toast.makeText(getApplicationContext(), "Bookmarks ("+((Integer)size).toString() + ")", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_settings) {
-            //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
