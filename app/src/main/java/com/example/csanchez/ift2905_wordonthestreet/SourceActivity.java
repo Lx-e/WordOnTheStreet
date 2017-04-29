@@ -24,8 +24,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -183,20 +181,8 @@ public class SourceActivity extends AppCompatActivity implements View.OnClickLis
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            String sourcesStr = getSharedPreferences("SavedData", MODE_PRIVATE).getString("FavoriteSources", "Nothing");//"No name defined" is the default value.
-            int resultCount = 0;
-            if(sourcesStr != null && !sourcesStr.equals("Nothing")) {
-                String[] sourceNames = sourcesStr.split(",");
-                for (String sourceName: sourceNames) {
-                    Source source =  idsToSources.get(sourceName.trim());
-                    if (source.category.equals(categoryName)) resultCount++;
-                }
-            }
-
-            Intent intent = new Intent();
-            intent.putExtra("CategoryName", categoryName);
-            intent.putExtra("FavoriteCount", resultCount);
-            setResult(RESULT_OK, intent);
+            Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+            startActivity(intent);
             finish();
         }
     }
@@ -227,24 +213,19 @@ public class SourceActivity extends AppCompatActivity implements View.OnClickLis
         int id = item.getItemId();
 
         if (id == R.id.nav_fav) {
-            Toast.makeText(getApplicationContext(), "Favorites", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
         }
         else if (id == R.id.nav_history) {
-            Toast.makeText(getApplicationContext(), "History", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
         }
         else if (id == R.id.nav_book) {
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
             int size = prefs.getInt("bookmark_size", 0);
-            Toast.makeText(getApplicationContext(), "Bookmarks ("+((Integer)size).toString() + ")", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_settings) {
-            //Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
             SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }

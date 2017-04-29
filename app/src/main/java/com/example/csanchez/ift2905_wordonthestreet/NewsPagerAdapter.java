@@ -14,11 +14,11 @@ import java.util.Map;
 
 // Since this is an object collection, use a FragmentStatePagerAdapter,
 // and NOT a FragmentPagerAdapter.
-public class PagerCarlosAdapter extends FragmentStatePagerAdapter {
+public class NewsPagerAdapter extends FragmentStatePagerAdapter {
 //    String[] categories =  {"business", "entertainment", "gaming", "general", "music", "politics", "science-and-nature", "sport", "technology"};
     Map<String, ArrayList<String>> srcByCat = new HashMap<String, ArrayList<String>>();
     List<String> cats = new ArrayList<String>();
-    public PagerCarlosAdapter(FragmentManager fm, Map<String, ArrayList<String>> sourcesByCat) {
+    public NewsPagerAdapter(FragmentManager fm, Map<String, ArrayList<String>> sourcesByCat) {
         super(fm);
         for (Map.Entry<String, ArrayList<String>> me: sourcesByCat.entrySet()) {
             if (me.getValue().size() == 0) continue;
@@ -40,7 +40,7 @@ public class PagerCarlosAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment = new PagerCarlosFragment();
+        Fragment fragment = new NewsPagerAdapterFragment();
         Bundle args = new Bundle();
         //On va chercher la catégorie concernée ainsi que les sources y appartenant
         args.putString("Category", cats.get(i));

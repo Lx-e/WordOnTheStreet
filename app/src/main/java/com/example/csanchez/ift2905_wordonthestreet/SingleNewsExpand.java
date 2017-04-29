@@ -1,47 +1,19 @@
 package com.example.csanchez.ift2905_wordonthestreet;
 
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Checkable;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.CompoundButton;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 
 
@@ -142,13 +114,9 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
             case R.id.button5:
                 if(!bookmarked) {
                     //mettre bookmark
-                    //Toast.makeText(getApplicationContext(), "on", Toast.LENGTH_SHORT).show();
-
                     toggle.setBackgroundResource(R.drawable.ic_book_black_48dp);
                     SharedPreferences prefs = getSharedPreferences("bookmarks", MODE_PRIVATE);
                     SharedPreferences.Editor e = getSharedPreferences("bookmarks",MODE_PRIVATE).edit();
-                    //Toast.makeText(getApplicationContext(), link, Toast.LENGTH_SHORT).show();
-                    //if(prefs.getInt("bookmark_size", 0)!=0){}
                     i=prefs.getInt("bookmark_size", 0);
                     e.putInt("bookmark_size",i+1);
 
@@ -156,7 +124,6 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
                     String titleCount = "title"+i;
                     String dateCount = "date"+i;
 
-                    Toast.makeText(getApplicationContext(), listCount, Toast.LENGTH_SHORT).show();
                     e.putString(listCount, link);
                     e.putString(titleCount, desc);
                     e.putString(dateCount, date);
@@ -166,7 +133,6 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
                 }
                 else{
                     //retirer bookmark
-                    //Toast.makeText(getApplicationContext(), "off", Toast.LENGTH_SHORT).show();
                     String urlbook;
                     int pivot=0;
                     boolean sucessRemove=false;
@@ -195,7 +161,6 @@ public class SingleNewsExpand extends AppCompatActivity implements View.OnClickL
                             String newDesc = prefs.getString("title"+((Integer)(k+1)).toString(), null);
                             String newDate = prefs.getString("date"+((Integer)(k+1)).toString(), null);
 
-                            Toast.makeText(getApplicationContext(), listCount, Toast.LENGTH_SHORT).show();
                             e.putString(listCount, newLink);
                             e.putString(titleCount, newDesc);
                             e.putString(dateCount, newDate);
