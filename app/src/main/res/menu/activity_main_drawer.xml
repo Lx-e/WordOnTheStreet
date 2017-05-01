@@ -4,6 +4,10 @@
 
     <group android:checkableBehavior="none">
         <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_refresh_black_48dp"
+            android:title="Refresh News Feed" />
+        <item
             android:id="@+id/nav_fav"
             android:icon="@drawable/ic_favorite_border_black_48dp"
             android:title="Favorites" />
@@ -16,10 +20,7 @@
             android:icon="@drawable/ic_bookmark_border_black_48dp"
             android:title="Bookmarks" />
 
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_black_48dp"
-            android:title="Settings" />
+
     </group>
 
 </menu>
