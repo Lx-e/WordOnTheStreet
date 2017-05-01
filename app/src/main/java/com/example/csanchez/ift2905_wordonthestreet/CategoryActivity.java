@@ -72,9 +72,6 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
@@ -167,34 +164,6 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
             finish();
         }
     }
-
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 0) {
-//            if(resultCode == RESULT_OK) {
-//                String categoryName = data.getStringExtra("CategoryName");
-//                int favoriteCount = data.getIntExtra("FavoriteCount", 0);
-//                int sourceCount = categoryToSourceCount.containsKey(categoryName) ?
-//                        categoryToSourceCount.get(categoryName) : 0;
-//                categoryToFavoriteSourceCount.put(categoryName, favoriteCount);
-//                countViewsByCategories.get(categoryName).setText((CharSequence)("(" + favoriteCount + "/" + sourceCount + ")"));
-//
-//                final TextView updatedView = countViewsByCategories.get(categoryName);
-//                final String newText = "(" + favoriteCount + "/" + sourceCount + ")";
-//                ListView items = ((ListView)findViewById(R.id.listView_categories));
-//
-//                for (int i = 0; i < items.getChildCount(); i++) {
-//                    ViewGroup sourceItem = (ViewGroup)((ViewGroup)items.getChildAt(i)).getChildAt(0);
-//                    TextView nameView = (TextView)sourceItem.getChildAt(0);
-//                    TextView countView = (TextView)sourceItem.getChildAt(1);
-//                    if (categoryName.equals(nameView.getText().toString().toLowerCase())) {
-//                        countView.setText(newText);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     @Override
     public void onClick(View v) {
